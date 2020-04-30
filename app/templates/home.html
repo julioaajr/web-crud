@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+
+<head>PRODUTOS</head>
+<title>PRODUTOSSSSS</title>
+<body>
+   <center><img src="{% static "images/cad.png" %}" alt="Clientes" width="10%" height="10%"></center>
+   {% for item in error %}
+   <p>{{ item }}</p>
+   {% endfor %}
+   <table>
+      <center>
+         {% if produto %}
+         {% for item in produto %}
+         <form action="/new_produto/" method="post">
+            <input type="number" name="id" value="{{ item.id }}" hidden>
+            <input type="text" name="descricao" value="{{ item.descricao }}" required>
+            <input type="number" name="preco" value="{{ item.preco }}">
+            <input type="number" name="estoque" value="{{ item.estoque }}">
+            <input type="submit" name="enviar" value="Salvar">
+         </form>
+         {% endfor %}
+         {% else %}
+         <form action="/new_produto/" method="post">
+            <input type="number" name="id" value="-1" hidden>
+            <input type="text" name="descricao" placeholder="Descricao" required>
+            <input type="number" name="preco" placeholder="Preco">
+            <input type="number" name="estoque" placeholder="Estoque">
+            <input type="submit" name="enviar" value="Salvar">
+         </form>
+         {% endif %}
+
+
+      </center>
+   </table>
+
+   <br>
+   <hr /><br>
+   <ul>
+      <table border="1" width="90%">
+         <p>Produtos cadastrados</p>
+         {% for item in list %}
+         <tr>
+            <td><b>id:</b> {{ item.id }}</td>
+            <td><b>Descricao:</b> {{ item.descricao }}</td>
+            <td><b>Preco:</b> {{ item.preco }}</td>
+            <td><b>Estoque</b> {{ item.estoque }}</td>
+            <td><a href="/delete_produto/?id={{ item.id }}"> <img src="{% static "images/delete.png" %}" alt="Produto" width="90%" height="30"> </a></td>
+            <td><a href="/update_produto/?id={{ item.id }}"> <img src="{% static "images/alterar.svg" %}" alt="Produto" width="90%" height="30"> </a></td>
+         </tr>
+         {% endfor %}
+
+      </table>
+   </ul>
+</body>
+
+</html>
